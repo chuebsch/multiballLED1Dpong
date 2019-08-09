@@ -12,10 +12,10 @@ ks=k*sin(ang);
 bore=5.5;
 //color("red")
 /*
-translate([a-20,5.9,c/2-1.8])rotate(90,[1,0,0])import("C:/Users/chuebsch/Documents/3d/osCAD/VerbinderM3.stl");
-translate([a-20,b-5.9,c/2+2.2])rotate(-90,[1,0,0])import("C:/Users/chuebsch/Documents/3d/osCAD/VerbinderM3.stl");
-translate([2*a-20,5.9,c/2-1.8])rotate(90,[1,0,0])import("C:/Users/chuebsch/Documents/3d/osCAD/VerbinderM3.stl");
-translate([2*a-20,b-5.9,c/2+2.2])rotate(-90,[1,0,0])import("C:/Users/chuebsch/Documents/3d/osCAD/VerbinderM3.stl");*/
+translate([a-20,5.9,c/2-1.8])rotate(90,[1,0,0])import("VerbinderM3.stl");
+translate([a-20,b-5.9,c/2+2.2])rotate(-90,[1,0,0])import("VerbinderM3.stl");
+translate([2*a-20,5.9,c/2-1.8])rotate(90,[1,0,0])import("VerbinderM3.stl");
+translate([2*a-20,b-5.9,c/2+2.2])rotate(-90,[1,0,0])import("VerbinderM3.stl");*/
 module pong(){
 difference(){
     minkowski(){
@@ -47,10 +47,10 @@ translate([a+9.6/2-2*9.6,b+5,c/2])
 rotate(90,[1,0,0]) cylinder($fn=60,d=3.6,h=b+10);
 
 
-translate([a-20,5.9,c/2-1.8])rotate(90,[1,0,0])import("C:/Users/chuebsch/Documents/3d/osCAD/VerbinderM3.stl");
-translate([a-20,b-5.9,c/2+2.2])rotate(-90,[1,0,0])import("C:/Users/chuebsch/Documents/3d/osCAD/VerbinderM3.stl");
-translate([2*a-20,5.9,c/2-1.8])rotate(90,[1,0,0])import("C:/Users/chuebsch/Documents/3d/osCAD/VerbinderM3.stl");
-translate([2*a-20,b-5.9,c/2+2.2])rotate(-90,[1,0,0])import("C:/Users/chuebsch/Documents/3d/osCAD/VerbinderM3.stl");
+translate([a-20,5.9,c/2-1.8])rotate(90,[1,0,0])import("VerbinderM3.stl");
+translate([a-20,b-5.9,c/2+2.2])rotate(-90,[1,0,0])import("VerbinderM3.stl");
+translate([2*a-20,5.9,c/2-1.8])rotate(90,[1,0,0])import("VerbinderM3.stl");
+translate([2*a-20,b-5.9,c/2+2.2])rotate(-90,[1,0,0])import("VerbinderM3.stl");
         /*
     for (i=[0:14]){
     translate([k/2+i*kc,(b/2)-i*ks+1.5*w,-1.1])cylinder(h=15,d=bore,$fn=50);
@@ -115,10 +115,10 @@ rotate(90,[1,0,0]) cylinder($fn=60,d=3.6,h=b+10);
 translate([2*a+9.6/2-2*9.6,b+5,c/2])
 rotate(90,[1,0,0]) cylinder($fn=60,d=3.6,h=b+10);
 
-translate([a-20,5.9,c/2-1.8])rotate(90,[1,0,0])import("C:/Users/chuebsch/Documents/3d/osCAD/VerbinderM3.stl");
-translate([a-20,b-5.9,c/2+2.2])rotate(-90,[1,0,0])import("C:/Users/chuebsch/Documents/3d/osCAD/VerbinderM3.stl");
-translate([2*a-20,5.9,c/2-1.8])rotate(90,[1,0,0])import("C:/Users/chuebsch/Documents/3d/osCAD/VerbinderM3.stl");
-translate([2*a-20,b-5.9,c/2+2.2])rotate(-90,[1,0,0])import("C:/Users/chuebsch/Documents/3d/osCAD/VerbinderM3.stl");
+translate([a-20,5.9,c/2-1.8])rotate(90,[1,0,0])import("VerbinderM3.stl");
+translate([a-20,b-5.9,c/2+2.2])rotate(-90,[1,0,0])import("VerbinderM3.stl");
+translate([2*a-20,5.9,c/2-1.8])rotate(90,[1,0,0])import("VerbinderM3.stl");
+translate([2*a-20,b-5.9,c/2+2.2])rotate(-90,[1,0,0])import("VerbinderM3.stl");
 
 
 translate([1.2*a,b/3,0.1])cylinder($fn=60,d=57,h=3);
@@ -130,4 +130,4 @@ translate([1.2*a,b/3,-5])cylinder($fn=60,d=20,h=13);
 
 //  */ 
 pong();
-*translate([3*a,b,0])rotate(180)pong();
+translate([3*a,b,0])rotate(180)pong();
