@@ -10,7 +10,7 @@ module dcjack(){
 }
 %import("pong1.stl");
 //color("red")translate([2.3,50,15])dcjack();
-color("teal")
+*color("teal")
 difference(){
 translate([0,0,31.5])
 
@@ -28,3 +28,44 @@ translate([3,50-4.5,-20])cube([15,9,20]);
 }
 translate([2.3,50,15])dcjack();
 }
+
+color("teal")
+translate([125,0,31.5])
+union(){
+minkowski(){
+    cube([200,100,3]);
+    sphere($fn=24,d=1.5);
+}
+translate([3,2.1,-20])cube([75,3,20]);
+translate([3,100-2.1-3,-20])cube([75,3,20]);
+translate([3,1.6,-18])cube([75,3,2]);
+translate([3,100-1.6-3,-18])cube([75,3,2]);
+
+
+translate([123,2.1,-20])cube([75,3,20]);
+translate([123,100-2.1-3,-20])cube([75,3,20]);
+translate([123,1.6,-18])cube([75,3,2]);
+translate([123,100-1.6-3,-18])cube([75,3,2]);
+
+}
+*color("teal")
+translate([350,0,31.5])
+union(){
+minkowski(){
+    cube([200,100,3]);
+    sphere($fn=24,d=1.5);
+}
+translate([3,2.1,-20])cube([75,3,20]);
+translate([3,100-2.1-3,-20])cube([75,3,20]);
+translate([3,1.6,-18])cube([75,3,2]);
+translate([3,100-1.6-3,-18])cube([75,3,2]);
+
+
+translate([123,2.1,-20])cube([75,3,20]);
+translate([123,100-2.1-3,-20])cube([75,3,20]);
+translate([123,1.6,-18])cube([75,3,2]);
+translate([123,100-1.6-3,-18])cube([75,3,2]);
+
+}
+
+%import("C:/MELK/trunk/3D-Models/pong-mid.stl");
