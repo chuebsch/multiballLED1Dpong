@@ -29,7 +29,7 @@ translate([3,50-4.5,-20])cube([15,9,20]);
 translate([2.3,50,15])dcjack();
 }
 
-color("teal")
+*color("teal")
 translate([125,0,31.5])
 union(){
 minkowski(){
@@ -48,7 +48,7 @@ translate([123,1.6,-18])cube([75,3,2]);
 translate([123,100-1.6-3,-18])cube([75,3,2]);
 
 }
-*color("teal")
+*color("red")
 translate([350,0,31.5])
 union(){
 minkowski(){
@@ -67,5 +67,16 @@ translate([123,1.6,-18])cube([75,3,2]);
 translate([123,100-1.6-3,-18])cube([75,3,2]);
 
 }
+color("blue")
+translate([327.5,0,30.0])
+difference(){
+union(){
+    cube([20,100,3]);
+    translate([10,0,-12])scale([1,0.5,1])cylinder($fn=60,d2=20,d1=10,h=15);
+    translate([10,100,-12])scale([1,0.5,1])cylinder($fn=60,d2=20,d1=10,h=15);
+    
+}
+translate([0,-0.9,-12.5])cube([20,102,13]);
 
+}
 %import("C:/MELK/trunk/3D-Models/pong-mid.stl");
