@@ -51,7 +51,7 @@ void func1() { // Player one pressed their button
     activeBalls = 1;
     balls[ab].color = cols[ab];
     balls[ab].dir = 1;
-    balls[ab].pos = 1;
+    balls[ab].pos = 0;
     balls[ab].speed = 0;
   } else if ((activeBalls) && (balls[0].speed == 0)) {
     if ((activePlayers == 1) && (balls[0].dir == 1)) {
@@ -59,7 +59,7 @@ void func1() { // Player one pressed their button
       ab = activeBalls - 1;
       balls[ab].color = cols[ab];
       balls[ab].dir = 1;
-      balls[ab].pos = 1;
+      balls[ab].pos = 0;
       balls[ab].speed = 0;
     } else if ((activePlayers == 1) && (balls[0].dir == -1)) {
       onePlays = true;
@@ -89,7 +89,7 @@ void func2() { // Player two pressed their button
       balls[ab].dir = -1;
       balls[ab].pos = 39;
       balls[ab].speed = 0;
-    } else if ((activePlayers == 1) && (balls[0].dir == -1)) {
+    } else if ((activePlayers == 1) && (balls[0].dir == 1)) {
       activePlayers = 2;
       twoPlays = true;
       showScore2();
