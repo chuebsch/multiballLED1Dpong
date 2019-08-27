@@ -8,17 +8,26 @@
 #define PLAYER1_DISPLAY_PIN 7
 #define SPEEKER_PIN 8
 #define PLAYER2_DISPLAY_PIN 9
-
-const byte N0[12] = {0, 9, 10, 1, 11, 2, 12, 3, 13, 4, 5, 14};
-const byte N1[6] =  {5, 6, 7, 8, 9, 13};
-const byte N2[11] = {0, 9, 10, 11, 2, 7, 12, 3, 4, 5, 14};
-const byte N3[11] = {0, 1, 2, 3, 4, 5, 7, 9, 10, 12, 14};
-const byte N4[9] = {0, 1, 2, 3, 4, 7, 12, 13, 14};
-const byte N5[11] = {0, 9, 10, 1, 2, 7, 12, 13, 4, 5, 14};
-const byte N6[12] = {0, 1, 2, 4, 5, 7, 9, 10, 11, 12, 13, 14};
-const byte N7[7] = {0, 1, 2, 3, 4, 5, 14};
-const byte N8[13] = {0, 9, 10, 1, 11, 2, 7, 12, 3, 13, 4, 5, 14};
-const byte N9[12] = {0, 9, 10, 3, 1, 2, 7, 12, 13, 4, 5, 14};
+/* 
+ * 14 5 4 | 14 5 4 |    5  | 14 5 4 | 14 5 4 | 14   4 | 14 5 4 | 14 5 4 | 14 5 4 | 14 5 4 | 14 5 4 |
+ * 13 6 3 | 13   3 | 13 6  |      3 |      3 | 13   3 | 13     | 13     |      3 | 13   3 | 13   3 |
+ * 12 7 2 | 12   2 |    7  | 12 7 2 | 12 7 2 | 12 7 2 | 12 7 2 | 12 7 2 |      2 | 12 7 2 | 12 7 2 | 
+ * 11 8 1 | 11   1 |    8  | 11     |      1 |      1 |      1 | 11   1 |      1 | 11   1 |      1 |
+ * 10 9 0 | 10 9 0 |    9  | 10 9 0 | 10 9 0 |      0 | 10 9 0 | 10 9 0 |      0 | 10 9 0 | 10 9 0 |
+ *  
+ *  
+ *  
+*/
+const byte N0[12] = {0, 1, 2, 3, 4, 5,          9, 10, 11, 12, 13, 14};
+const byte N1[6]  = {               5, 6, 7, 8, 9,             13    };
+const byte N2[11] = {0,    2, 3, 4, 5,    7,    9, 10, 11, 12,     14};
+const byte N3[11] = {0, 1, 2, 3, 4, 5,    7,    9, 10,     12,     14};
+const byte N4[9]  = {0, 1, 2, 3, 4,       7,               12, 13, 14};
+const byte N5[11] = {0, 1, 2,    4, 5,    7,    9, 10,     12, 13, 14};
+const byte N6[12] = {0, 1, 2,    4, 5,    7,    9, 10, 11, 12, 13, 14};
+const byte N7[7]  = {0, 1, 2, 3, 4, 5,                             14};
+const byte N8[13] = {0, 1, 2, 3, 4, 5,    7,    9, 10, 11, 12, 13, 14};
+const byte N9[12] = {0, 1, 2, 3, 4, 5,    7,    9, 10,     12, 13, 14};
 
 
 Adafruit_NeoPixel track(40, GAME_TRACK_PIN, NEO_GRB + NEO_KHZ800);
@@ -48,6 +57,8 @@ void func1() { // Player one pressed their button
     activePlayers = 1;
     onePlays = true;
     showScore1();
+    disp2off();
+    display_2.show();
     activeBalls = 1;
     balls[ab].color = cols[ab];
     balls[ab].dir = 1;
@@ -77,6 +88,8 @@ void func2() { // Player two pressed their button
     activeBalls = 1;
     twoPlays = true;
     showScore2();
+    disp1off();
+    display_1.show();
     balls[ab].color = cols[ab];
     balls[ab].dir = -1;
     balls[ab].pos = 39;
@@ -101,7 +114,13 @@ uint8_t calls = 0;
 void doballs() {
   calls++;
   calls %= 5;
-  trackoff();
+  trackoff();  
+  for (int i = 0; i < activeBalls; i++) {//separtate balls that have been glued together
+    for (int j = i+1; j < activeBalls; j++) {
+        if ((balls[i].pos!=39)&&(balls[i].pos!=0))
+        if ((balls[i].pos==balls[j].pos)&&(balls[i].dir==balls[j].dir)&&(balls[i].speed==balls[j].speed))balls[j].pos++;
+    }
+  }
   for (int i = 0; i < activeBalls; i++) {
     /*
       Serial.print("Ball# "); Serial.print(i + 1);
@@ -135,7 +154,7 @@ void player2scores(int i) {
     }
     scorePlayer2++;
     if (scorePlayer2 > 9) p2wins();
-    else showScore2();
+    else if (twoPlays) showScore2(); else {scorePlayer1=scorePlayer2;showScore1();}
   } else { //reflect if no other player there
     balls[i].color = cols[i];
     balls[i].dir = 1;
@@ -157,7 +176,7 @@ void player1scores(int i) {
     balls[i].speed = 0;
     scorePlayer1++;
     if (scorePlayer1 > 9) p1wins();
-    else showScore1();
+    else if (onePlays) showScore1(); else {scorePlayer2=scorePlayer1;showScore2();}
   } else { //reflect if no other player there
     balls[i].color = cols[i];
     balls[i].dir = -1;
@@ -188,7 +207,7 @@ void p1() {
     tone(SPEEKER_PIN, 500, 300);
     scorePlayer2++;
     if (scorePlayer2 > 9) p2wins();
-    else showScore2();
+    else if (twoPlays) showScore2(); else {scorePlayer1=scorePlayer2;showScore1();}
   }
 }
 
@@ -216,7 +235,7 @@ void p2() {
     tone(SPEEKER_PIN, 500, 300);
     scorePlayer1++;
     if (scorePlayer1 > 9) p1wins();
-    else showScore1();
+    else if (onePlays) showScore1(); else {scorePlayer2=scorePlayer1;showScore2();}
   }
 }
 
@@ -425,7 +444,7 @@ void loop() {
   if ((f2 == LOW) && (F2 == HIGH)) func2();
   unsigned long nowis = millis();
   static unsigned long nextTime = 0ul;
-  if ((nowis - nextTime) > 50ul) {
+  if ((nowis - nextTime) > 40ul) {
     doballs();
     nextTime = nowis;
   }
